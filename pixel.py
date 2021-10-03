@@ -59,7 +59,7 @@ class GrowImage(ImageClass):
             for i, j in itertools.product(range(-rw, rw), range(-rh, rh)):
                 if i == -rw  or i == rw-1 or j == -rh or j == rh-1:
                     coords = (ImageClass.IMG_WIDTH//2 + i, ImageClass.IMG_HEIGHT//2 + j)
-                    requests.post(BASE_URL, data=dict(x=coords[0], y=coords[1], color=ImageClass.toHex(self.pixels[coords[0]][coords[1]])))
+                    requests.post(BASE_URL, data=dict(x=coords[1], y=coords[0], color=ImageClass.toHex(self.pixels[coords[0]][coords[1]])))
 
 TYPE_NAMES = {"image_linear": LinearImage, "image_grow": GrowImage}
 
