@@ -17,7 +17,7 @@ class ImageClass:
         Returns a numpy array representing the pixels of the image, reshaped to the size of pixel.
         @TODO implement alternative resize methods
         """
-        img = Image.open(imgPath).resize((ImageClass.IMG_HEIGHT, ImageClass.IMG_WIDTH))
+        img = Image.open(imgPath).resize((ImageClass.IMG_HEIGHT, ImageClass.IMG_WIDTH)).convert("RGBA")
         return np.array(img)
     
     @staticmethod
