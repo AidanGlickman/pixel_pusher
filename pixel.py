@@ -4,6 +4,8 @@ from PIL import Image
 import abc
 import argparse
 import numpy as np
+import itertools
+
 
 BASE_URL = "http://pixel.acm.illinois.edu/"
 class ImageClass:
@@ -48,8 +50,18 @@ class LinearImage(ImageClass):
                     pixelStr = ImageClass.toHex(pixel)
                     requests.post(BASE_URL,  data=dict(x=x, y=y, color=pixelStr))
 
+class GrowImage(ImageClass):
+    def __init__(self, imgPath, transThresh=100, dry=False):
+        super().__init__(imgPath, transThresh, dry)
+    
+    def draw(self):
+        for rw, rh in zip(range((ImageClass.IMG_WIDTH//2)+1), range((ImageClass.IMG_HEIGHT//2)+1)):
+            for i, j in itertools.product(range(-rw, rw), range(-rh, rh)):
+                if i == -rw  or i == rw-1 or j == -rh or j == rh-1:
+                    coords = (ImageClass.IMG_WIDTH//2 + i, ImageClass.IMG_HEIGHT//2 + j)
+                    requests.post(BASE_URL, data=dict(x=coords[0], y=coords[1], color=ImageClass.toHex(self.pixels[coords[0]][coords[1]])))
 
-TYPE_NAMES = {"image_linear": LinearImage}
+TYPE_NAMES = {"image_linear": LinearImage, "image_grow": GrowImage}
 
 def drawDriver(args):
     imageDriver = TYPE_NAMES[args.method[0]](args.file[0])
