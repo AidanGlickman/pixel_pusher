@@ -5,7 +5,7 @@ Some basic ways to interact with [pixel.acm.illinois.edu].
 As of now, this script mainly consists of different rendering methods to put images on to pixel. More patterns and options will be added as I write them.
 ## Basic Usage
 
-`./pixel.py -M 'render_method' -F 'filename'
+`./pixel.py -M 'render_method' -F 'filename'`
 
 ## Render Methods
 
